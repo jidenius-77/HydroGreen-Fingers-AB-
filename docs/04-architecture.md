@@ -1,106 +1,196 @@
 # Systemarkitektur – MicroHydros
 
-## 1. Grundarkitektur
+## 1. Syfte
 
-MicroHydros byggs med en liten och modulär arkitektur där datainsamling,
-databehandling, validering och kommunikation hålls separerade.
+Detta dokument beskriver den planerade systemarkitekturen för MicroHydros-prototypen.
 
-```text
-+----------------------------------+       +--------------------------------+
-| Sensorer / simulerade datakällor |       | Embedded-system                |
-|                                  | ----> | ESP32 proof-of-concept         |
-| - lufttemperatur inne            |       |                                |
-| - lufttemperatur ute             |       | SensorManager                  |
-| - vattentemperatur               |       |       |                        |
-| - luftfuktighet inne             |       |       v                        |
-+----------------------------------+       | MeasurementData                |
-                                           |       |                        |
-                                           |       v                        |
-                                           | Validator                      |
-                                           |       |                        |
-                                           |       v                        |
-                                           | Communication                  |
-                                           +---------------+----------------+
-                                                           |
-                                                           |
-                                        vald kommunikationslösning
-                                        (seriell / MQTT / annat)
-                                                           |
-                                                           v
-                                           +--------------------------------+
-                                           | Externt system                 |
-                                           | PC / gateway / broker / server |
-                                           +--------------------------------+
+Arkitekturen ska stödja projektets krav på:
+
+- fyra mätpunkter,
+- återkommande mätningar,
+- gemensam datastruktur,
+- validering av mätvärden,
+- kontrollerad felhantering,
+- kommunikation till ett externt system,
+- möjlighet till framtida vidareutveckling.
+
+Arkitekturen hålls medvetet liten och modulär.
+
+---
+
+## 2. Grundarkitektur
+
+```mermaid
+flowchart TD
+    A[Sensorer / simulerade datakällor]
+    A1[Lufttemperatur inne]
+    A2[Lufttemperatur ute]
+    A3[Vattentemperatur]
+    A4[Luftfuktighet inne]
+
+    B[SensorManager<br/>hämtar eller simulerar värden]
+    C[MeasurementData<br/>gemensam datastruktur]
+    D[Validator<br/>kontrollerar rimlighet]
+    E[Communication<br/>formaterar och skickar data]
+    F[Externt system<br/>PC / gateway / broker / server]
+
+    A --> A1
+    A --> A2
+    A --> A3
+    A --> A4
+
+    A1 --> B
+    A2 --> B
+    A3 --> B
+    A4 --> B
+
+    B --> C
+    C --> D
+    D --> E
+    E --> F
 ```
 
 ---
 
-## 2. Systemets huvuddelar
+## 3. Embedded-plattform
 
-### SensorManager
+Projektets nuvarande proof-of-concept använder:
 
-`SensorManager` ansvarar för att hämta de fyra mätvärden som systemet behöver:
+- ESP32 som målplattform,
+- C++,
+- Arduino Framework,
+- PlatformIO.
 
-- lufttemperatur inne,
-- lufttemperatur ute,
-- vattentemperatur,
-- relativ luftfuktighet inne.
+Detta är inte nödvändigtvis ett slutligt beslut om fysisk hårdvara.
 
-Under den första utvecklingsfasen kan datan komma från simulerade
-datakällor.
+Projektgruppen ska bekräfta med läraren om slutprototypen ska använda:
 
-Om fysisk hårdvara används senare ska samma del kunna läsa värden från
-riktiga sensorer.
+- fysisk hårdvara,
+- simulering,
+- eller en kombination.
+
+Arkitekturen ska fungera oavsett om mätvärden kommer från riktiga sensorer eller simulerade datakällor.
 
 ---
 
-### MeasurementData
+## 4. Systemets huvuddelar
 
-`MeasurementData` är den gemensamma datastrukturen för en komplett
-mätning.
+### 4.1 SensorManager
 
-Strukturen ska minst kunna representera:
+`SensorManager` ansvarar för att ta fram systemets fyra mätvärden.
+
+Den ska kunna hantera:
 
 - lufttemperatur inne,
 - lufttemperatur ute,
 - vattentemperatur,
 - relativ luftfuktighet inne.
 
-Den kan även innehålla exempelvis:
+Under tidig utveckling kan värden simuleras.
+
+Om fysisk hårdvara används senare ska samma del kunna anpassas för riktiga sensorer.
+
+**Kopplade krav:**
+
+- F1
+- F2
+- F3
+- F4
+- F5
+
+**Kopplade backlog-items:**
+
+- B09
+- B10
+- B11
+- B12
+- B13
+
+---
+
+### 4.2 MeasurementData
+
+`MeasurementData` representerar en komplett mätning.
+
+Strukturen ska minst innehålla:
+
+- lufttemperatur inne,
+- lufttemperatur ute,
+- vattentemperatur,
+- relativ luftfuktighet inne.
+
+Den kan även innehålla:
 
 - tidpunkt,
-- status,
-- information om mätningen är giltig eller ogiltig.
+- giltighetsstatus,
+- eventuell felstatus.
+
+Exempel:
+
+```cpp
+struct MeasurementData
+{
+    float airInsideC;
+    float airOutsideC;
+    float waterC;
+    float humidityInsidePct;
+    bool valid;
+};
+```
+
+Den exakta implementationen kan ändras under projektet.
+
+**Kopplade krav:**
+
+- F6
+- F7
+
+**Kopplade backlog-items:**
+
+- B08
 
 ---
 
-### Validator
+### 4.3 Validator
 
-`Validator` ansvarar för att kontrollera om mätvärdena verkar rimliga.
+`Validator` ansvarar för att kontrollera om mätvärden verkar rimliga.
 
-Exempel på tydligt ogiltiga värden är:
+Exempel på tydligt ogiltiga värden:
 
 - relativ luftfuktighet under 0 %,
 - relativ luftfuktighet över 100 %.
 
-De slutliga rimlighetsgränserna bestäms och dokumenteras senare i
-projektet.
+De slutliga valideringsgränserna ska beslutas och motiveras under projektet.
 
-Ett ogiltigt värde ska kunna hanteras utan att hela systemet avslutas.
+Om ett värde är ogiltigt ska systemet kunna:
+
+- markera mätningen som ogiltig,
+- hantera felet kontrollerat,
+- fortsätta till nästa mätcykel.
+
+**Kopplade krav:**
+
+- F8
+- F9
+- NF1
+
+**Kopplade backlog-items:**
+
+- B14
+- B15
+- B16
 
 ---
 
-### Communication
+### 4.4 Communication
 
-`Communication` ansvarar för att formatera och kommunicera en komplett
-mätning till ett externt system.
+`Communication` ansvarar för att formatera och kommunicera en komplett mätning till ett externt system.
 
-Som ett första proof-of-concept kan seriell kommunikation användas.
+Som proof-of-concept kan seriell kommunikation användas.
 
-Projektgruppen ska senare utvärdera och motivera vilken
-kommunikationslösning som används i slutprototypen.
+Projektgruppen ska senare utvärdera den slutliga kommunikationslösningen.
 
-Möjliga alternativ är exempelvis:
+Möjliga alternativ är:
 
 - seriell kommunikation,
 - MQTT,
@@ -108,46 +198,57 @@ Möjliga alternativ är exempelvis:
 - Bluetooth/BLE,
 - annan relevant lösning.
 
+**Kopplade krav:**
+
+- F10
+- F11
+
+**Kopplade backlog-items:**
+
+- B17
+- B18
+- B19
+
 ---
 
-## 3. Dataflöde
+## 5. Dataflöde
 
-Systemets grundläggande dataflöde är:
+Systemets huvudsakliga dataflöde är:
 
 ```text
-Sensorer / simulerade värden
-            |
-            v
-      SensorManager
-            |
-            v
-     MeasurementData
-            |
-            v
-        Validator
-            |
-            v
-      Communication
-            |
-            v
-       Externt system
+Sensor / simulering
+        |
+        v
+SensorManager
+        |
+        v
+MeasurementData
+        |
+        v
+Validator
+        |
+        v
+Communication
+        |
+        v
+Externt system
 ```
 
-Processen genomförs enligt följande:
+Processen är:
 
-1. `SensorManager` läser eller tar emot de fyra mätvärdena.
-2. Värdena sparas i en gemensam `MeasurementData`-struktur.
-3. `Validator` kontrollerar om mätvärdena verkar rimliga.
+1. `SensorManager` hämtar eller simulerar fyra mätvärden.
+2. Värdena sparas i `MeasurementData`.
+3. `Validator` kontrollerar mätvärdena.
 4. Mätningen markeras som giltig eller ogiltig.
 5. `Communication` formaterar mätningen.
-6. Mätdata kommuniceras till ett externt system.
-7. Processen upprepas efter projektets valda mätintervall.
+6. Informationen kommuniceras till ett externt system.
+7. Processen upprepas efter valt mätintervall.
 
 ---
 
-## 4. Exempel på dataformat
+## 6. Exempel på dataformat
 
-En mätning kan exempelvis representeras som:
+Ett möjligt format är JSON:
 
 ```json
 {
@@ -159,37 +260,113 @@ En mätning kan exempelvis representeras som:
 }
 ```
 
-Det slutliga formatet kan förändras under projektet.
+Det slutliga formatet bestäms under projektets utveckling.
 
 ---
 
-## 5. Designprincip
+## 7. Felhantering
 
-Arkitekturen är medvetet liten och modulär.
+Felhanteringen ska vara separerad från själva datainsamlingen så långt det är möjligt.
 
-Projektgruppen prioriterar att först skapa en stabil och begriplig
-grundlösning innan extra funktioner läggs till.
+Exempel:
 
-Genom att separera datainsamling, datastruktur, validering och
-kommunikation blir det enklare att senare:
+```text
+MeasurementData
+      |
+      v
+Validator
+      |
+      +---- giltig ----> Communication
+      |
+      +---- ogiltig ---> Felhantering / loggning
+                              |
+                              v
+                       Nästa mätcykel
+```
 
-- byta sensorer,
-- byta kommunikationslösning,
+Ett ogiltigt värde ska inte automatiskt avsluta hela programmet.
+
+---
+
+## 8. Modularitet
+
+Arkitekturen delas upp i separata ansvarsområden för att underlätta framtida förändringar.
+
+Det ska exempelvis vara möjligt att:
+
+- byta sensorer utan att skriva om Validator,
+- byta kommunikationslösning utan att skriva om SensorManager,
+- ändra dataformat utan att ändra sensorkoden,
 - lägga till fler mätpunkter,
-- ansluta flera MicroHydros-enheter,
-- lagra historiska mätvärden,
-- ansluta systemet till en framtida molntjänst.
+- ansluta flera MicroHydros-enheter.
 
 ---
 
-## 6. Beslut som återstår
+## 9. Framtida arkitektur
 
-Följande arkitekturbeslut är ännu inte slutligt fastställda:
+En framtida version skulle exempelvis kunna se ut så här:
+
+```text
+MicroHydros-enhet
+      |
+      v
+Wi-Fi / MQTT
+      |
+      v
+MQTT Broker
+      |
+      v
+Databas
+      |
+      v
+Dashboard / notifieringar
+```
+
+Detta ingår inte som krav i grundprototypen.
+
+---
+
+## 10. Beslut som återstår
+
+Följande beslut är ännu inte slutligt fastställda:
 
 - vilka sensorer som ska användas,
-- om slutprototypen använder fysisk hårdvara, simulering eller en kombination,
-- vilken kommunikationslösning som används i slutprototypen,
+- om fysisk hårdvara, simulering eller en kombination ska användas,
 - vilket mätintervall som används,
-- vilka slutliga valideringsgränser som används.
+- vilka valideringsgränser som används,
+- vilken kommunikationslösning som används,
+- vilket slutligt dataformat som används.
 
-Besluten dokumenteras när de fattas under projektets utveckling.
+Besluten dokumenteras i:
+
+`docs/07-decision-log.md`
+
+---
+
+## 11. Koppling till integrationstest
+
+Arkitekturen ska senare verifieras genom ett integrationstest:
+
+```text
+SensorManager
+      |
+      v
+MeasurementData
+      |
+      v
+Validator
+      |
+      v
+Communication
+      |
+      v
+Externt system
+```
+
+Testet dokumenteras i:
+
+`docs/06-test-protocol.md`
+
+och motsvarar främst backlog-item:
+
+`B20 – Testa komplett dataflöde`
