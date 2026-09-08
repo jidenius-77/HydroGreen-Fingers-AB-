@@ -1,4 +1,4 @@
-# MicroHydros – G-bas
+# MicroHydros
 
 Detta repository är en startmall för skolprojektet **MicroHydros**.
 Målet med mallen är att ge gruppen en liten, stabil och begriplig grund som kan byggas vidare till en fungerande IoT-/embeddedprototyp.

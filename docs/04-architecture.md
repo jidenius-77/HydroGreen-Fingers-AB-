@@ -3,21 +3,21 @@
 ## Första G-arkitektur
 
 ```text
-+----------------------+       +------------------------+
-| Fysiska sensorer     |       | Embedded-system ESP32  |
-|                      | ----> |                        |
-| - temp inne          |       | SensorManager          |
-| - temp ute           |       | Validator              |
-| - vattentemp         |       | MeasurementData        |
-| - luftfuktighet inne |       | Communication          |
-+----------------------+       +-----------+------------+
-                                            |
-                                            | seriell / senare MQTT
-                                            v
-                                +------------------------+
-                                | Externt system         |
-                                | PC / gateway / broker  |
-                                +------------------------+
++---------------------------------+       +------------------------+
+| Sensorer / simulerade datakällor|       | Embedded-system ESP32  |
+|                                 | ----> |                        |
+| - temp inne                     |       | SensorManager          |
+| - temp ute                      |       | Validator              |
+| - vattentemp                    |       | MeasurementData        |
+| - luftfuktighet inne            |       | Communication          |
++---------------------------------+       +-----------+------------+
+                                                      |
+                                                      | seriell / senare MQTT
+                                                      v
+                                          +------------------------+
+                                          | Externt system         |
+                                          | PC / gateway / broker  |
+                                          +------------------------+
 ```
 
 ## Dataflöde
