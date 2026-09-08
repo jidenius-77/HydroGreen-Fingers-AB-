@@ -81,69 +81,32 @@ Extra funktionalitet utvecklas endast om projektets grundläggande krav först �
 
 ## 5. Kravspecifikation
 
-### 5.1 Funktionella krav
+Projektets fullständiga och testbara kravspecifikation finns i:
 
-#### F1 – Lufttemperatur inne
+`docs/02-requirements.md`
 
-Systemet ska kunna hantera temperaturdata för luften inne i odlingsmiljön.
+De viktigaste funktionella grundkraven är att systemet ska kunna:
 
-#### F2 – Lufttemperatur ute
+- hantera lufttemperatur inne i odlingsmiljön,
+- hantera lufttemperatur utanför odlingsmiljön,
+- hantera temperatur i vatten eller näringslösning,
+- hantera relativ luftfuktighet inne i odlingsmiljön,
+- genomföra mätningar återkommande,
+- representera mätdata i en gemensam datastruktur,
+- behandla och validera mätdata,
+- hantera vissa felaktiga eller orimliga situationer,
+- kommunicera mätdata till ett externt system.
 
-Systemet ska kunna hantera temperaturdata för luften utanför odlingsmiljön.
+Viktiga icke-funktionella krav omfattar:
 
-#### F3 – Vattentemperatur
+- stabilitet,
+- läsbar och modulär kod,
+- versionshantering med Git,
+- spårbar utveckling,
+- dokumentation,
+- möjlighet till framtida vidareutveckling.
 
-Systemet ska kunna hantera temperaturdata för vatten eller näringslösning.
-
-#### F4 – Luftfuktighet inne
-
-Systemet ska kunna hantera relativ luftfuktighet inne i odlingsmiljön.
-
-#### F5 – Återkommande mätningar
-
-Systemet ska kunna genomföra mätningar återkommande så att flera mätvärden kan skapas över tid.
-
-#### F6 – Databehandling
-
-Mätdata ska behandlas av embedded-systemet innan informationen kommuniceras vidare.
-
-#### F7 – Validering och felhantering
-
-Systemet ska kunna identifiera och hantera vissa felaktiga eller orimliga mätvärden.
-
-#### F8 – Kommunikation
-
-Systemet ska kunna demonstrera hur mätdata lämnar embedded-systemet och kommuniceras till ett externt system.
-
-#### F9 – Datastruktur
-
-De fyra mätvärdena ska representeras i en gemensam och tydlig datastruktur.
-
-### 5.2 Icke-funktionella krav
-
-#### NF1 – Stabilitet
-
-Programmet ska kunna genomföra återkommande mätcykler utan att krascha vid normal användning.
-
-#### NF2 – Läsbarhet
-
-Källkoden ska vara strukturerad så att en annan utvecklare kan förstå programmets huvudsakliga delar.
-
-#### NF3 – Versionshantering
-
-All programkod ska versionshanteras med Git.
-
-#### NF4 – Spårbarhet
-
-Projektets Git-historik ska i rimlig grad göra det möjligt att följa projektets utveckling och gruppmedlemmarnas bidrag.
-
-#### NF5 – Kontrollerad felhantering
-
-Ett felaktigt mätvärde ska kunna hanteras utan att hela programmet behöver avslutas.
-
-#### NF6 – Vidareutveckling
-
-Programmets struktur ska göra det möjligt att senare byta eller lägga till sensorer och kommunikationslösningar utan att hela systemet behöver skrivas om.
+Kravspecifikationen uppdateras vid behov när tekniska beslut fattas under projektets gång.
 
 ---
 
