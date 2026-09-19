@@ -103,8 +103,8 @@ Dokumentera projektets funktionella och icke-funktionella krav och definiera hur
 
 **Kopplade krav:** NF4, NF5  
 **Prioritet:** P0  
-**Status:** To Do  
-**Ansvarig:** TBD
+**Status:** On going, done on monday meeting
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Säkerställ att gruppen använder ett gemensamt arbetssätt med branches, commits, Issues och Pull Requests.
@@ -152,8 +152,8 @@ Bekräfta om projektet ska demonstreras med fysisk hårdvara, simulering eller e
 
 **Kopplade krav:** F1, F2, F4, R1, R2  
 **Prioritet:** P0  
-**Status:** To Do  
-**Ansvarig:** TBD
+**Status:** On going / Done
+**Ansvarig:** Grupp tillsammans
 
 **Beskrivning:**  
 Undersök lämpliga sensorer för temperatur och relativ luftfuktighet.
@@ -185,8 +185,8 @@ Sensoralternativ ska jämföras utifrån relevanta egenskaper, exempelvis:
 
 **Kopplade krav:** F3, R2  
 **Prioritet:** P0  
-**Status:** To Do  
-**Ansvarig:** TBD
+**Status:** On going / Done
+**Ansvarig:** Grupp tillsammans
 
 **Beskrivning:**  
 Undersök lämpliga lösningar för att mäta temperaturen i vatten eller näringslösning.
