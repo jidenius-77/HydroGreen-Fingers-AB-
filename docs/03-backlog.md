@@ -225,8 +225,8 @@ Välj vilka sensorer eller simulerade sensormodeller som ska användas i prototy
 
 **Kopplade krav:** F6, F7, NF3  
 **Prioritet:** P0  
-**Status:** To Do  
-**Ansvarig:** TBD
+**Status:** Done  
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Skapa den gemensamma datastruktur som representerar en komplett mätning.
@@ -249,6 +249,9 @@ Den kan även innehålla exempelvis:
 - alla fyra mätvärden kan lagras samtidigt,
 - strukturen kan användas av både Validator och Communication,
 - koden bygger utan fel.
+
+**Resultat:** 
+`MeasurementData` verifierad, förbättrad med säkra standardvärden och mergad via PR #2.
 
 ---
 
