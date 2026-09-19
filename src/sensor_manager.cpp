@@ -11,14 +11,14 @@ MeasurementData SensorManager::read() {
     data.timestampMs = millis();
 
 #if USE_SIMULATED_SENSORS
-    // Endast för tidig utveckling. Ska ersättas med riktiga sensorvärden.
+    // Endast för tidig utveckling. Ska ersättas med riktiga sensorvärden. Detta görs för att kunna testa systemet utan att behöva ha alla sensorer på plats.
     const float drift = static_cast<float>((millis() / 1000UL) % 10UL) * 0.1f;
     data.airInsideC = 22.0f + drift;
     data.airOutsideC = 20.0f + drift * 0.5f;
     data.waterC = 19.0f + drift * 0.2f;
     data.humidityInsidePct = 55.0f + drift;
 #else
-    // TODO: Läs riktiga sensorer.
+    // TODO: Läs riktiga sensorer. för nu sätts värdena till 0.0f för att undvika att skicka ogiltiga värden.
     data.airInsideC = 0.0f;
     data.airOutsideC = 0.0f;
     data.waterC = 0.0f;
