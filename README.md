@@ -3,7 +3,7 @@
 Detta repository är en startmall för skolprojektet **MicroHydros**.
 Målet med mallen är att ge gruppen en liten, stabil och begriplig grund som kan byggas vidare till en fungerande IoT-/embeddedprototyp.
 
-## Projektmål för G
+## Projektmål
 
 Prototypen ska som helhet kunna demonstrera att:
 
