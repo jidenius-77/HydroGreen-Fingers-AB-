@@ -438,8 +438,8 @@ Alternativ kan exempelvis vara:
 
 **Kopplade krav:** F11  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** Done
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Formatera en komplett mätning i ett tydligt och konsekvent format.
@@ -462,6 +462,14 @@ Ett möjligt format är JSON:
 - formatet är konsekvent mellan mätcykler,
 - giltighetsstatus kan representeras,
 - output kan användas av kommunikationsdelen.
+
+**Resultat:**
+
+Strukturerad JSON-formatering implementerad genom
+`Communication::toJson()`. Alla fyra mätvärden,
+timestamp och giltighetsstatus inkluderas. Funktionen kan
+återanvändas av framtida kommunikationslösningar.
+Implementation verifierad med lyckad ESP32-build och mergad via PR #6.
 
 ---
 
