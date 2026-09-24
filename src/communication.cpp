@@ -7,18 +7,33 @@ bool Communication::begin() {
     return true;
 }
 
+String Communication::toJson(const MeasurementData& data) {
+    String json;
+    json.reserve(160);
+
+    json += "{\"timestamp_ms\":";
+    json += String(data.timestampMs);
+
+    json += ",\"air_inside_c\":";
+    json += String(data.airInsideC, 2);
+
+    json += ",\"air_outside_c\":";
+    json += String(data.airOutsideC, 2);
+
+    json += ",\"water_c\":";
+    json += String(data.waterC, 2);
+
+    json += ",\"humidity_inside_pct\":";
+    json += String(data.humidityInsidePct, 2);
+
+    json += ",\"valid\":";
+    json += (data.valid ? "true" : "false");
+
+    json += "}";
+
+    return json;
+}
+
 void Communication::send(const MeasurementData& data) {
-    Serial.print("{\"timestamp_ms\":");
-    Serial.print(data.timestampMs);
-    Serial.print(",\"air_inside_c\":");
-    Serial.print(data.airInsideC, 2);
-    Serial.print(",\"air_outside_c\":");
-    Serial.print(data.airOutsideC, 2);
-    Serial.print(",\"water_c\":");
-    Serial.print(data.waterC, 2);
-    Serial.print(",\"humidity_inside_pct\":");
-    Serial.print(data.humidityInsidePct, 2);
-    Serial.print(",\"valid\":");
-    Serial.print(data.valid ? "true" : "false");
-    Serial.println("}");
+    Serial.println(toJson(data));
 }
