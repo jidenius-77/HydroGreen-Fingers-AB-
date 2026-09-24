@@ -134,8 +134,8 @@ test/system-flow
 
 **Kopplade krav:** beslut som återstår i kravspecifikationen  
 **Prioritet:** P0  
-**Status:** To Do  
-**Ansvarig:** TBD
+**Status:** Done  
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Bekräfta om projektet ska demonstreras med fysisk hårdvara, simulering eller en kombination.
@@ -350,8 +350,8 @@ Systemet ska kunna skapa nya mätningar återkommande utan att behöva startas o
 
 **Kopplade krav:** F8  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** Done
+**Ansvarig:** Simon
 
 **Beskrivning:**  
 Bestäm vilka värden systemet ska betrakta som tydligt felaktiga eller orimliga i prototypen.
@@ -373,8 +373,8 @@ Exempel:
 
 **Kopplade krav:** F8, F9, NF1  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** Done
+**Ansvarig:** Simon
 
 **Beroende av:** B08, B14
 
@@ -394,8 +394,8 @@ Implementera validering av mätvärden.
 
 **Kopplade krav:** F9, NF1  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** in progress 
+**Ansvarig:** Simon
 
 **Beskrivning:**  
 Säkerställ att felaktiga mätvärden inte avslutar hela programmet.
@@ -531,8 +531,8 @@ Externt system
 
 **Kopplade krav:** F1–F11, NF1  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** Done
+**Ansvarig:** Simon / Lucas
 
 **Beskrivning:**  
 Dokumentera hur systemets viktigaste krav testas.
