@@ -109,6 +109,38 @@ void test_humidity_at_min_passes() {
     TEST_ASSERT_TRUE(Validator::isValid(d));
 }
 
+// TC-13: Samtliga fyra mätvärden plus valid kan hållas i samma struktur (F6).
+void test_measurement_data_holds_all_fields() {
+    MeasurementData d;
+
+    d.timestampMs = 12345;
+    d.airInsideC = 21.5f;
+    d.airOutsideC = 14.2f;
+    d.waterC = 19.85f;
+    d.humidityInsidePct = 52.3f;
+    d.valid = true;
+
+    TEST_ASSERT_EQUAL_UINT32(12345, d.timestampMs);
+    TEST_ASSERT_EQUAL_FLOAT(21.5f, d.airInsideC);
+    TEST_ASSERT_EQUAL_FLOAT(14.2f, d.airOutsideC);
+    TEST_ASSERT_EQUAL_FLOAT(19.8f, d.waterC);
+    TEST_ASSERT_EQUAL_FLOAT(52.3f, d.humidityInsidePct);
+    TEST_ASSERT_TRUE(d.valid);
+}
+
+// T13b: Defaultvärden är nollställda och valid är false tills motsatsen bevisats.
+void test_measurement_data_defaults_are_safe() {
+    MeasurementData d;
+
+    TEST_ASSERT_EQUAL_UINT32(0, d.timestampMs);
+    TEST_ASSERT_EQUAL_FLOAT(0.0f, d.airInsideC);
+    TEST_ASSERT_EQUAL_FLOAT(0.0f, d.airOutsideC);
+    TEST_ASSERT_EQUAL_FLOAT(0.0f, d.waterC);
+    TEST_ASSERT_EQUAL_FLOAT(0.0f, d.humidityInsidePct);
+    TEST_ASSERT_FALSE(d.valid);
+}
+
+
 int main(int, char**) {
     UNITY_BEGIN();
 
@@ -123,6 +155,7 @@ int main(int, char**) {
     RUN_TEST(test_water_at_min_passes);
     RUN_TEST(test_humidity_below_min_fails);
     RUN_TEST(test_humidity_at_min_passes);
-
+    RUN_TEST(test_measurement_data_holds_all_fields);
+    RUN_TEST(test_measurement_data_defaults_are_safe);
     return UNITY_END();
 }
