@@ -510,8 +510,8 @@ där giltig JSON publicerades och togs emot av en extern subscriber.
 
 **Kopplade krav:** F1–F11, NF1  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** DONE 
+**Ansvarig:** Lucas
 
 **Beroende av:** B08–B19
 
@@ -544,6 +544,19 @@ Externt system
 - mätningen formateras,
 - mätningen kommuniceras vidare,
 - flera mätcykler kan genomföras.
+
+**Resultat:**  
+Komplett programvarubaserat integrationstest genomfört.
+
+- `SensorManager → MeasurementData → Validator` verifierat med `native-flow`.
+- 2/2 integrationstester godkända.
+- Fem återkommande mätcykler verifierade.
+- Alla fyra mätvärden producerades och validerades.
+- JSON-format och MQTT-topic verifierade.
+- MQTT publish/subscribe verifierat med lokal Mosquitto-broker i Docker och extern subscriber.
+- Befintliga Validator-tester passerar 11/11.
+- ESP32-projektet bygger med `SUCCESS`.
+- Resultaten är dokumenterade i `docs/06-test-protocol.md`.
 
 ---
 
