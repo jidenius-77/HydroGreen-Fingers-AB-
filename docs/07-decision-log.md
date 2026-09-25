@@ -216,17 +216,15 @@ En komplett mätning representeras av en gemensam `MeasurementData`-struktur.
 Den ska minst innehålla:
 
 ```cpp
-struct MeasurementData
-{
-    float airInsideC;
-    float airOutsideC;
-    float waterC;
-    float humidityInsidePct;
-    bool valid;
+struct MeasurementData {
+    unsigned long timestampMs = 0;
+    float airInsideC = 0.0f;
+    float airOutsideC = 0.0f;
+    float waterC = 0.0f;
+    float humidityInsidePct = 0.0f;
+    bool valid = false;
 };
 ```
-
-En tidsstämpel eller ytterligare statusfält kan läggas till senare om behov finns.
 
 ## Motivering
 
@@ -290,7 +288,7 @@ Mätintervallet ska definieras på ett ställe i programmet och vara enkelt att 
 # D08 – Valideringsgränser
 
 **Datum:** 2026-09-19  
-**Status:** Arbetsbeslut
+**Status:** Beslutat
 
 ## Beslut
 
@@ -352,16 +350,17 @@ Att behålla informationen om att en mätning var ogiltig gör också felsöknin
 
 ## Beslut
 
-Mätdata representeras i ett JSON-liknande eller giltigt JSON-format.
+Mätdata representeras i giltigt JSON-format.
 
 Exempel:
 
 ```json
 {
-  "air_inside_c": 22.4,
-  "air_outside_c": 18.7,
-  "water_c": 20.1,
-  "humidity_inside_pct": 55.2,
+  "timestamp_ms": 1000,
+  "air_inside_c": 22.40,
+  "air_outside_c": 18.70,
+  "water_c": 20.10,
+  "humidity_inside_pct": 55.20,
   "valid": true
 }
 ```
@@ -384,7 +383,7 @@ Communication-modulen ansvarar för att översätta `MeasurementData` till detta
 # D11 – Kommunikationslösning
 
 **Datum:** 2026-09-19  
-**Status:** Arbetsbeslut
+**Status:** Beslutat
 
 ## Beslut
 
@@ -415,16 +414,20 @@ MQTT ger också en tydlig separation mellan embedded-enheten och det externa sys
 
 ## Konsekvens
 
-Communication-modulen bör utformas så att själva `MeasurementData` inte är beroende av MQTT.
+`Communication` använder Serial för lokal debug och MQTT över Wi-Fi för extern kommunikation.
 
-Om MQTT inte kan färdigställas inom projektperioden ska den seriella proof-of-concept-lösningen fortfarande kunna demonstrera dataflödet, och begränsningen dokumenteras.
+Mätdata konverteras till JSON innan publicering.
+
+MQTT-kommunikationen har verifierats programvarumässigt med en lokal Mosquitto-broker i Docker och en extern subscriber.
+
+Den fysiska kedjan ESP32 → Wi-Fi → MQTT återstår som kompletterande hårdvaruverifiering.
 
 ---
 
 # D12 – MQTT-topic
 
 **Datum:** 2026-09-19  
-**Status:** Arbetsbeslut
+**Status:** Beslutat
 
 ## Beslut
 
@@ -473,6 +476,18 @@ Om credentials behövs ska de lagras separat från versionshanterad kod.
 
 En exempelkonfiguration kan läggas i repositoryt utan riktiga hemligheter.
 
+Den lokala filen:
+
+`include/secrets.h`
+
+innehåller riktiga Wi-Fi-uppgifter och ignoreras av Git.
+
+Repositoryt innehåller istället:
+
+`include/secrets.example.h`
+
+med exempelvärden utan riktiga hemligheter.
+
 ---
 
 # D14 – Programarkitektur
@@ -485,7 +500,7 @@ En exempelkonfiguration kan läggas i repositoryt utan riktiga hemligheter.
 Projektet använder följande huvudsakliga dataflöde:
 
 ```text
-Sensorer / simulering
+Simulerade sensorer
         |
         v
 SensorManager
@@ -497,10 +512,24 @@ MeasurementData
 Validator
         |
         v
+valid = true / false
+        |
+        v
 Communication
         |
         v
-Externt system
+JSON
+        |
+        +----> Serial debug
+        |
+        v
+Wi-Fi / MQTT
+        |
+        v
+MQTT Broker
+        |
+        v
+Extern subscriber
 ```
 
 ## Motivering
@@ -581,12 +610,10 @@ Följande behöver fortfarande bekräftas eller beslutas senare:
 
 | Fråga | Status |
 |---|---|
-| Krävs fysisk hårdvara i slutdemonstrationen? | Öppet – bekräftas med läraren |
-| Exakt SHT40-modell/breakout-kort | Öppet |
-| Exakt DS18B20-probe | Öppet |
-| MQTT-broker | Öppet |
-| MQTT-bibliotek | Öppet |
-| Ska tidsstämpel inkluderas i `MeasurementData`? | Öppet |
+| Exakt SHT40-modell/breakout-kort | Öppet inför fysisk implementation |
+| Exakt DS18B20-probe | Öppet inför fysisk implementation |
+| Slutlig MQTT-broker för en framtida produktionslösning | Öppet |
+| Fysisk ESP32 → Wi-Fi → MQTT-verifiering | Återstår som kompletterande test |
 | Hur långt stabilitetstest ska genomföras? | Öppet |
 
 ---

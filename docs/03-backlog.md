@@ -667,7 +667,7 @@ Arkitekturdiagrammet och dataflödet motsvarar den nuvarande implementationen.
 
 **Kopplade krav:** NF6  
 **Prioritet:** P0  
-**Status:** To Do  
+**Status:** DONE
 **Ansvarig:** Gruppen
 
 **Beskrivning:**  
@@ -687,6 +687,30 @@ Exempel:
 - alternativ som övervägts framgår,
 - vald lösning framgår,
 - en kort motivering finns i `docs/07-decision-log.md`.
+
+**Resultat:**
+
+`docs/07-decision-log.md` har uppdaterats för att motsvara den slutliga prototypen.
+
+Beslutsloggen dokumenterar bland annat:
+
+- utvecklingsplattform,
+- simulering och fysisk sensorstrategi,
+- sensorval,
+- `MeasurementData`,
+- mätintervall,
+- valideringsgränser,
+- kontrollerad felhantering,
+- JSON-format,
+- MQTT över Wi-Fi,
+- MQTT-topic,
+- hantering av secrets,
+- programarkitektur,
+- Git-arbetssätt,
+- projektets prioriteringsprincip,
+- teststrategi.
+
+Beslut som fortfarande är öppna eller gäller framtida fysisk implementation är tydligt markerade.
 
 ---
 
