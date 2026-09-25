@@ -25,6 +25,5 @@ MeasurementData SensorManager::read() {
     data.humidityInsidePct = 0.0f;
 #endif
 
-    data.valid = true;
     return data;
 }
