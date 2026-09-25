@@ -748,7 +748,22 @@ Testet genomfördes som del av `test_complete_measurement_flow`.
 **## T14 – Kontrollerad felhantering över flera mätcykler**
 
 **Kopplat krav:** F9, NF1  
-**Status:** Ej genomfört som separat integrationstest
+**Status:** Genomfört
+
+### Genomförande
+
+En mätning skapades och gjordes medvetet ogiltig genom:
+
+`humidityInsidePct = 101.0f`
+
+`Validator` markerade mätningen som ogiltig.
+
+Därefter genomfördes en ny mätcykel med timestamp `10000 ms`.
+
+Den nya mätningen producerades och godkändes av `Validator`, vilket visar att ett ogiltigt värde inte blockerar efterföljande mätningar.
+
+**Resultat:** `PASSED`
+
 
 ### Syfte
 

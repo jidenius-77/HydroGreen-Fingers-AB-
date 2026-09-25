@@ -103,8 +103,8 @@ Dokumentera projektets funktionella och icke-funktionella krav och definiera hur
 
 **Kopplade krav:** NF4, NF5  
 **Prioritet:** P0  
-**Status:** On going, done on monday meeting
-**Ansvarig:** Lucas
+**Status:** -
+**Ansvarig:** -
 
 **Beskrivning:**  
 Säkerställ att gruppen använder ett gemensamt arbetssätt med branches, commits, Issues och Pull Requests.
@@ -185,7 +185,7 @@ Sensoralternativ ska jämföras utifrån relevanta egenskaper, exempelvis:
 
 **Kopplade krav:** F3, R2  
 **Prioritet:** P0  
-**Status:** On going / Done
+**Status:** DONE
 **Ansvarig:** Grupp tillsammans
 
 **Beskrivning:**  
@@ -204,7 +204,7 @@ Undersök lämpliga lösningar för att mäta temperaturen i vatten eller närin
 
 **Kopplade krav:** F1, F2, F3, F4, R1, R2  
 **Prioritet:** P0  
-**Status:** Backlog  
+**Status:** DONE
 **Ansvarig:** Gruppen
 
 **Beroende av:** B05, B06
@@ -259,8 +259,8 @@ Den kan även innehålla exempelvis:
 
 **Kopplade krav:** F1  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** DONE
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Implementera eller simulera ett mätvärde för lufttemperaturen inne i odlingsmiljön.
@@ -271,14 +271,19 @@ Implementera eller simulera ett mätvärde för lufttemperaturen inne i odlingsm
 - värdet sparas i `MeasurementData`,
 - värdet kan skickas vidare till validering.
 
+**Resultat:**  
+Simulerad datakälla implementerad i `SensorManager`.  
+Värdet sparas i `MeasurementData.airInsideC` och skickas vidare till `Validator`.  
+Funktionen verifierades i B20-integrationstestet.
+
 ---
 
 ## B10 – Implementera datakälla för lufttemperatur ute
 
 **Kopplade krav:** F2  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** DONE
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Implementera eller simulera ett mätvärde för lufttemperaturen utanför odlingsmiljön.
@@ -289,14 +294,19 @@ Implementera eller simulera ett mätvärde för lufttemperaturen utanför odling
 - värdet sparas i `MeasurementData`,
 - värdet kan skickas vidare till validering.
 
+**Resultat:**  
+Simulerad datakälla implementerad i `SensorManager`.  
+Värdet sparas i `MeasurementData.airOutsideC` och skickas vidare till `Validator`.  
+Verifierad i B20-integrationstestet.
+
 ---
 
 ## B11 – Implementera datakälla för vattentemperatur
 
 **Kopplade krav:** F3  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** DONE
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Implementera eller simulera ett mätvärde för temperaturen i vatten eller näringslösning.
@@ -307,14 +317,19 @@ Implementera eller simulera ett mätvärde för temperaturen i vatten eller när
 - värdet sparas i `MeasurementData`,
 - värdet kan skickas vidare till validering.
 
+**Resultat:**  
+Simulerad datakälla implementerad i `SensorManager`.  
+Värdet sparas i `MeasurementData.waterC` och skickas vidare till `Validator`.  
+Verifierad i B20-integrationstestet.
+
 ---
 
 ## B12 – Implementera datakälla för luftfuktighet inne
 
 **Kopplade krav:** F4  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** DONE
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Implementera eller simulera ett mätvärde för relativ luftfuktighet inne i odlingsmiljön.
@@ -325,14 +340,19 @@ Implementera eller simulera ett mätvärde för relativ luftfuktighet inne i odl
 - värdet sparas i `MeasurementData`,
 - värdet kan skickas vidare till validering.
 
+**Resultat:**  
+Simulerad datakälla implementerad i `SensorManager`.  
+Värdet sparas i `MeasurementData.humidityInsidePct` och skickas vidare till `Validator`.  
+Verifierad i B20-integrationstestet.
+
 ---
 
 ## B13 – Implementera återkommande mätcykel
 
 **Kopplade krav:** F5, NF1  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** DONE  
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Systemet ska kunna skapa nya mätningar återkommande utan att behöva startas om.
@@ -343,6 +363,14 @@ Systemet ska kunna skapa nya mätningar återkommande utan att behöva startas o
 - alla fyra mätvärden uppdateras i varje mätcykel,
 - programmet fortsätter köra mellan mätningarna,
 - valt mätintervall är dokumenterat och motiverat.
+
+**Resultat:**  
+Återkommande mätcykel är implementerad i `main.cpp`.
+
+Under utveckling används ett mätintervall på 5 sekunder.  
+Systemet uppdaterar samtliga fyra mätvärden i varje cykel och fortsätter köra mellan mätningarna.
+
+B20-integrationstestet verifierade fem efterföljande mätcykler med uppdaterad timestamp och giltiga mätvärden.
 
 ---
 
@@ -374,7 +402,7 @@ Exempel:
 **Kopplade krav:** F8, F9, NF1  
 **Prioritet:** P0  
 **Status:** Done
-**Ansvarig:** Simon
+**Ansvarig:** Simon / Lucas
 
 **Beroende av:** B08, B14
 
@@ -395,7 +423,7 @@ Implementera validering av mätvärden.
 **Kopplade krav:** F9, NF1  
 **Prioritet:** P0  
 **Status:** in progress 
-**Ansvarig:** Simon
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Säkerställ att felaktiga mätvärden inte avslutar hela programmet.
@@ -405,6 +433,15 @@ Säkerställ att felaktiga mätvärden inte avslutar hela programmet.
 - systemet kan upptäcka ett ogiltigt värde,
 - felet hanteras eller loggas på ett begripligt sätt,
 - nästa mätcykel kan genomföras efter felet.
+
+**Resultat:**  
+
+Ogiltiga mätvärden identifieras av `Validator` och får `valid = false`.
+
+`main.cpp` loggar:
+
+```text
+WARNING: Invalid measurement detected
 
 ---
 

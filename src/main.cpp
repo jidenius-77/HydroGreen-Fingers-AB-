@@ -24,6 +24,7 @@ void setup() {
 void loop() {
     // Håller MQTT-anslutningen aktiv mellan mätningarna.
     communication.loop();
+
     const unsigned long now = millis();
 
     if (now - lastMeasurementMs < MEASUREMENT_INTERVAL_MS) {
@@ -34,6 +35,10 @@ void loop() {
 
     MeasurementData data = sensors.read();
     data.valid = Validator::isValid(data);
+
+    if (!data.valid) {
+        Serial.println("WARNING: Invalid measurement detected");
+    }
 
     communication.send(data);
 }
