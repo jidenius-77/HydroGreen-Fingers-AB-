@@ -477,8 +477,8 @@ Implementation verifierad med lyckad ESP32-build och mergad via PR #6.
 
 **Kopplade krav:** F10, F11  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** DONE 
+**Ansvarig:** Lucas
 
 **Beroende av:** B17, B18
 
@@ -491,6 +491,18 @@ Implementera vald kommunikationslösning så att mätdata kan lämna embedded-sy
 - ett externt system kan ta emot eller läsa mätningen,
 - gruppen kan demonstrera dataflödet,
 - kommunikationslösningen är dokumenterad.
+
+**Resultat:**  
+Wi-Fi- och MQTT-kommunikation har implementerats i `Communication`.
+
+Mätdata formateras som JSON och publiceras på topic
+`microhydros/measurement`.
+
+ESP32-projektet bygger utan fel och befintliga Validator-tester
+passerar 11/11.
+
+MQTT-flödet har verifierats med en lokal Mosquitto-broker i Docker,
+där giltig JSON publicerades och togs emot av en extern subscriber.
 
 ---
 
