@@ -424,4 +424,124 @@ Detta kan användas för att verifiera MQTT-kommunikationen oberoende av övriga
 │   └── mosquitto.conf
 │
 ├── docs/
+│   ├── 01-projectplan.md
+│   ├── 02-requirements.md
+│   ├── 03-backlog.md
+│   ├── 04-architecture.md
+│   ├── 05-sensor-comparison.md
+│   ├── 06-test-protocol.md
+│   ├── 07-decision-log.md
+│   └── 08-demo-checklist.md
 │
+├── include/
+│   ├── communication.h
+│   ├── measurement_data.h
+│   ├── sensor_manager.h
+│   ├── validator.h
+│   └── secrets.example.h
+│
+├── src/
+│   ├── communication.cpp
+│   ├── main.cpp
+│   ├── sensor_manager.cpp
+│   └── validator.cpp
+│
+├── test/
+│   ├── stubs/
+│   ├── test_data_flow/
+│   └── test_validator/
+│
+├── .gitignore
+├── CONTRIBUTING.md
+├── platformio.ini
+└── README.md
+```
+
+---
+
+## Dokumentation
+
+Projektets tekniska dokumentation finns i `docs/`.
+
+| Dokument | Innehåll |
+|---|---|
+| `01-projectplan.md` | Projektplan och arbetssätt |
+| `02-requirements.md` | Funktionella och icke-funktionella krav |
+| `03-backlog.md` | Backlog och projektstatus |
+| `04-architecture.md` | Systemarkitektur och dataflöde |
+| `05-sensor-comparison.md` | Sensorjämförelse och sensorval |
+| `06-test-protocol.md` | Testfall och testresultat |
+| `07-decision-log.md` | Tekniska och organisatoriska beslut |
+| `08-demo-checklist.md` | Checklista inför demonstration |
+
+---
+
+## Git-arbetssätt
+
+Projektet använder ett branch- och Pull Request-baserat arbetsflöde.
+
+Grundprincip:
+
+```text
+main
+  |
+  +-- feature/...
+  +-- test/...
+  +-- docs/...
+```
+
+- `main` ska hållas stabil.
+- Nya uppgifter utvecklas på separata branches.
+- Commits ska vara små och beskrivande.
+- Pull Requests används för att integrera större ändringar.
+- GitHub Issues används där det är relevant för spårbarhet.
+
+Mer information finns i:
+
+```text
+CONTRIBUTING.md
+```
+
+---
+
+## Kända begränsningar
+
+Den nuvarande prototypen har följande begränsningar:
+
+- sensordata är simulerade,
+- de valda fysiska sensorerna är ännu inte integrerade i slutflödet,
+- fysisk ESP32 → Wi-Fi → MQTT end-to-end-verifiering återstår,
+- längre stabilitetstest återstår,
+- ingen databas används för historisk lagring,
+- ingen dashboard eller mobilapplikation ingår,
+- MQTT-lösningen är en prototyplösning och saknar produktionsfunktioner som TLS och autentisering.
+
+---
+
+## Möjlig vidareutveckling
+
+Projektet kan senare kompletteras med:
+
+- fysisk integration av SHT40 och DS18B20,
+- historisk datalagring,
+- databas,
+- dashboard,
+- notifieringar,
+- TLS och autentiserad MQTT,
+- unika MQTT-topics per enhet,
+- fler sensorer,
+- längre stabilitetstester.
+
+---
+
+## Definition of Done
+
+En uppgift räknas som klar när:
+
+- implementationen fungerar,
+- projektet bygger,
+- relevanta tester passerar,
+- dokumentationen är uppdaterad,
+- kända begränsningar dokumenteras,
+- ändringen är spårbar i Git,
+- en annan utvecklare kan förstå lösningen.
