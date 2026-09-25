@@ -745,7 +745,7 @@ README beskriver projektets syfte, huvudfunktioner, arkitektur, teknik, sensorva
 
 **Kopplade krav:** samtliga P0-krav  
 **Prioritet:** P0  
-**Status:** Backlog  
+**Status:** DONE
 **Ansvarig:** Gruppen
 
 **Beskrivning:**  
@@ -767,6 +767,21 @@ Förbered projektets slutliga demonstration.
 - `docs/08-demo-checklist.md` är uppdaterad,
 - gruppen har genomfört minst en intern testdemonstration,
 - alla gruppmedlemmar kan förklara systemets huvudflöde.
+
+**Status:** Done
+**Ansvarig:** Lucas
+
+**Resultat:**
+
+Demonstrationschecklistan har uppdaterats och projektets huvudflöde har gåtts igenom inför slutredovisningen.
+
+Slutkontroll genomförd med:
+
+- Validator: 11/11 tester godkända,
+- native-flow: 3/3 integrationstester godkända,
+- ESP32-build: SUCCESS.
+
+Demonstrationen omfattar systemarkitektur, fyra mätpunkter, validering, kontrollerad felhantering, JSON, MQTT, sensorval och kända begränsningar.
 
 ---
 
