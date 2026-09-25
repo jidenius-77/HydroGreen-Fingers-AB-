@@ -629,7 +629,7 @@ För varje test ska följande finnas:
 
 **Kopplade krav:** NF3, NF6, NF7  
 **Prioritet:** P0  
-**Status:** In Progress  
+**Status:** DONE 
 **Ansvarig:** Lucas
 
 **Beskrivning:**  
@@ -642,6 +642,24 @@ Håll arkitekturdokumentet uppdaterat när tekniska beslut fattas.
 - valt kommunikationssätt framgår,
 - fysisk hårdvara/simulering är korrekt beskrivet,
 - arkitekturdiagrammet motsvarar implementationen.
+
+**Resultat:**
+
+`docs/04-architecture.md` har uppdaterats för att motsvara den slutliga prototypens implementation.
+
+Dokumentet beskriver:
+
+- aktuell modulär arkitektur,
+- simulerade datakällor och valda fysiska sensorer,
+- `SensorManager`, `MeasurementData`, `Validator` och `Communication`,
+- validering och kontrollerad felhantering,
+- JSON-format,
+- Wi-Fi och MQTT,
+- Serial-debug,
+- återkommande mätcykler,
+- integrationstest och kända begränsningar.
+
+Arkitekturdiagrammet och dataflödet motsvarar den nuvarande implementationen.
 
 ---
 
