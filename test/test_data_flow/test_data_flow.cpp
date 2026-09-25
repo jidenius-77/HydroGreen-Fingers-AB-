@@ -67,11 +67,37 @@ void test_multiple_measurement_cycles() {
     }
 }
 
+void test_invalid_measurement_does_not_block_next_cycle() {
+    SensorManager sensors;
+
+    TEST_ASSERT_TRUE(sensors.begin());
+
+    // Första mätningen görs medvetet ogiltig.
+    fakeMillis = 5000;
+
+    MeasurementData invalidData = sensors.read();
+    invalidData.humidityInsidePct = 101.0f;
+    invalidData.valid = Validator::isValid(invalidData);
+
+    TEST_ASSERT_FALSE(invalidData.valid);
+
+    // Systemet ska fortfarande kunna genomföra nästa mätcykel.
+    fakeMillis = 10000;
+
+    MeasurementData nextData = sensors.read();
+    nextData.valid = Validator::isValid(nextData);
+
+    TEST_ASSERT_EQUAL_UINT32(10000, nextData.timestampMs);
+    TEST_ASSERT_TRUE(nextData.valid);
+}
+
+
 int main(int, char**) {
     UNITY_BEGIN();
 
     RUN_TEST(test_complete_measurement_flow);
     RUN_TEST(test_multiple_measurement_cycles);
+    RUN_TEST(test_invalid_measurement_does_not_block_next_cycle);
 
     return UNITY_END();
 }
