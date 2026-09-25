@@ -6,3 +6,5 @@
 .DS_Store
 Thumbs.db
 *.log
+# Local secrets
+include/secrets.h
