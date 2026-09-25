@@ -72,9 +72,7 @@ Extern subscriber
 
 Mer detaljerad information finns i:
 
-```text
-docs/04-architecture.md
-```
+[docs/04-architecture.md](docs/04-architecture.md)
 
 ---
 
@@ -114,9 +112,7 @@ DHT11 och DHT22 används inte.
 
 Sensorjämförelse och motivering finns i:
 
-```text
-docs/05-sensor-comparison.md
-```
+[docs/05-sensor-comparison.md](docs/05-sensor-comparison.md)
 
 ---
 
@@ -221,9 +217,7 @@ Riktiga Wi-Fi-uppgifter ska aldrig commitas till Git.
 
 Projektet använder:
 
-```text
-include/secrets.h
-```
+`include/secrets.h`
 
 för lokal konfiguration.
 
@@ -231,9 +225,7 @@ Filen ignoreras av Git.
 
 Skapa den utifrån:
 
-```text
-include/secrets.example.h
-```
+[include/secrets.example.h](include/secrets.example.h)
 
 Exempel:
 
@@ -380,9 +372,7 @@ SUCCESS
 
 Mer detaljerade testresultat finns i:
 
-```text
-docs/06-test-protocol.md
-```
+[docs/06-test-protocol.md](docs/06-test-protocol.md)
 
 ---
 
@@ -392,9 +382,7 @@ En lokal Mosquitto-broker kan startas med Docker.
 
 Konfiguration finns i:
 
-```text
-docker/mosquitto.conf
-```
+[docker/mosquitto.conf](docker/mosquitto.conf)
 
 Exempel:
 
@@ -465,14 +453,14 @@ Projektets tekniska dokumentation finns i `docs/`.
 
 | Dokument | Innehåll |
 |---|---|
-| `01-projectplan.md` | Projektplan och arbetssätt |
-| `02-requirements.md` | Funktionella och icke-funktionella krav |
-| `03-backlog.md` | Backlog och projektstatus |
-| `04-architecture.md` | Systemarkitektur och dataflöde |
-| `05-sensor-comparison.md` | Sensorjämförelse och sensorval |
-| `06-test-protocol.md` | Testfall och testresultat |
-| `07-decision-log.md` | Tekniska och organisatoriska beslut |
-| `08-demo-checklist.md` | Checklista inför demonstration |
+| [01-projectplan.md](docs/01-projectplan.md) | Projektplan och arbetssätt |
+| [02-requirements.md](docs/02-requirements.md) | Funktionella och icke-funktionella krav |
+| [03-backlog.md](docs/03-backlog.md) | Backlog och projektstatus |
+| [04-architecture.md](docs/04-architecture.md) | Systemarkitektur och dataflöde |
+| [05-sensor-comparison.md](docs/05-sensor-comparison.md) | Sensorjämförelse och sensorval |
+| [06-test-protocol.md](docs/06-test-protocol.md) | Testfall och testresultat |
+| [07-decision-log.md](docs/07-decision-log.md) | Tekniska och organisatoriska beslut |
+| [08-demo-checklist.md](docs/08-demo-checklist.md) | Checklista inför demonstration |
 
 ---
 
@@ -498,9 +486,7 @@ main
 
 Mer information finns i:
 
-```text
-CONTRIBUTING.md
-```
+[CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
