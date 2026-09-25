@@ -103,8 +103,8 @@ Dokumentera projektets funktionella och icke-funktionella krav och definiera hur
 
 **Kopplade krav:** NF4, NF5  
 **Prioritet:** P0  
-**Status:** -
-**Ansvarig:** -
+**Status:** DONE
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Säkerställ att gruppen använder ett gemensamt arbetssätt med branches, commits, Issues och Pull Requests.
@@ -152,8 +152,8 @@ Bekräfta om projektet ska demonstreras med fysisk hårdvara, simulering eller e
 
 **Kopplade krav:** F1, F2, F4, R1, R2  
 **Prioritet:** P0  
-**Status:** On going / Done
-**Ansvarig:** Grupp tillsammans
+**Status:** Done
+**Ansvarig:** Grupp
 
 **Beskrivning:**  
 Undersök lämpliga sensorer för temperatur och relativ luftfuktighet.
@@ -422,7 +422,7 @@ Implementera validering av mätvärden.
 
 **Kopplade krav:** F9, NF1  
 **Prioritet:** P0  
-**Status:** in progress 
+**Status:** DONE 
 **Ansvarig:** Lucas
 
 **Beskrivning:**  
@@ -434,7 +434,7 @@ Säkerställ att felaktiga mätvärden inte avslutar hela programmet.
 - felet hanteras eller loggas på ett begripligt sätt,
 - nästa mätcykel kan genomföras efter felet.
 
-**Resultat:**  
+**Resultat:**
 
 Ogiltiga mätvärden identifieras av `Validator` och får `valid = false`.
 
@@ -442,6 +442,7 @@ Ogiltiga mätvärden identifieras av `Validator` och får `valid = false`.
 
 ```text
 WARNING: Invalid measurement detected
+```
 
 ---
 
@@ -449,8 +450,8 @@ WARNING: Invalid measurement detected
 
 **Kopplade krav:** F10, F11  
 **Prioritet:** P0  
-**Status:** To Do  
-**Ansvarig:** TBD
+**Status:** DONE
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Jämför möjliga sätt att kommunicera mätdata till ett externt system.
@@ -468,6 +469,14 @@ Alternativ kan exempelvis vara:
 - gruppen har valt en lösning för slutprototypen,
 - valet är motiverat,
 - beslutet dokumenteras i `docs/07-decision-log.md`.
+
+**Resultat:**
+
+Seriell kommunikation, MQTT, HTTP/REST och Bluetooth/BLE har diskuterats som möjliga kommunikationslösningar.
+
+MQTT över Wi-Fi valdes för extern IoT-kommunikation och Serial behålls för lokal debug.
+
+Valet och motiveringen dokumenteras i `docs/07-decision-log.md`.
 
 ---
 
@@ -586,7 +595,7 @@ Externt system
 Komplett programvarubaserat integrationstest genomfört.
 
 - `SensorManager → MeasurementData → Validator` verifierat med `native-flow`.
-- 2/2 integrationstester godkända.
+- 3/3 integrationstester godkända.
 - Fem återkommande mätcykler verifierade.
 - Alla fyra mätvärden producerades och validerades.
 - JSON-format och MQTT-topic verifierade.
@@ -768,9 +777,6 @@ Förbered projektets slutliga demonstration.
 - gruppen har genomfört minst en intern testdemonstration,
 - alla gruppmedlemmar kan förklara systemets huvudflöde.
 
-**Status:** Done
-**Ansvarig:** Lucas
-
 **Resultat:**
 
 Demonstrationschecklistan har uppdaterats och projektets huvudflöde har gåtts igenom inför slutredovisningen.
@@ -787,7 +793,7 @@ Demonstrationen omfattar systemarkitektur, fyra mätpunkter, validering, kontrol
 
 # 5. P1 – Kvalitetsförbättringar
 
-P1-arbete påbörjas först när P0-funktionerna fungerar.
+Vid slutleveransen prioriterades P0-kraven, testning, dokumentation och överlämning. Återstående P1- och P2-uppgifter betraktas som framtida vidareutveckling.
 
 ## B26 – Längre stabilitetstest
 
@@ -820,10 +826,14 @@ Lägg till tydligare loggning för exempelvis:
 
 **Kopplade krav:** F10, NF7  
 **Prioritet:** P1  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** DOME
+**Ansvarig:** Lucas
 
 Om grundkommunikationen är enkel, exempelvis seriell kommunikation, kan gruppen utvärdera att komplettera med exempelvis MQTT.
+
+**Resultat:**
+
+MQTT över Wi-Fi implementerades redan som projektets huvudsakliga kommunikationslösning inom B17 och B19. Ingen ytterligare kommunikationslösning bedömdes nödvändig för slutprototypen.
 
 ---
 
