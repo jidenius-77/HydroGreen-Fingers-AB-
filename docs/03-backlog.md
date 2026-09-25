@@ -718,8 +718,8 @@ Beslut som fortfarande är öppna eller gäller framtida fysisk implementation �
 
 **Kopplade krav:** NF6  
 **Prioritet:** P0  
-**Status:** Backlog  
-**Ansvarig:** TBD
+**Status:** DONE
+**Ansvarig:** Lucas
 
 **Beskrivning:**  
 Uppdatera projektets README så att en annan utvecklare kan förstå projektets syfte och hur systemet används.
@@ -732,6 +732,12 @@ Uppdatera projektets README så att en annan utvecklare kan förstå projektets 
 - nödvändiga beroenden,
 - grundläggande användning,
 - länk eller hänvisning till teknisk dokumentation.
+
+**Resultat:**
+
+`README.md` har uppdaterats för slutleveransen.
+
+README beskriver projektets syfte, huvudfunktioner, arkitektur, teknik, sensorval, validering, MQTT-kommunikation, installation, build, tester, projektstruktur, dokumentation och kända begränsningar.
 
 ---
 
