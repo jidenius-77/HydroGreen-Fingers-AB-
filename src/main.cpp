@@ -22,6 +22,8 @@ void setup() {
 }
 
 void loop() {
+    // Håller MQTT-anslutningen aktiv mellan mätningarna.
+    communication.loop();
     const unsigned long now = millis();
 
     if (now - lastMeasurementMs < MEASUREMENT_INTERVAL_MS) {
